@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Order Dashboard with Excel Upload</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+<!-- Manual Orders Section me existing buttons ke neeche add karein -->
+<button onclick="clearAllData()" style="background:#e74c3c">Clear All Data</button>
+
+<div class="header">
+  <h1>Order Dashboard with Excel Upload</h1>
+</div>
+
+<div class="container">
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat-box">
+      <h3 id="totalOrders">0</h3>
+      <p>Total Orders</p>
+    </div>
+    <div class="stat-box">
+      <h3 id="topReason">-</h3>
+      <p>Top Reason</p>
+    </div>
+  </div>
+
+  <!-- Manual Orders -->
+  <div class="card">
+    <h2>Add Orders Manually</h2>
+    <textarea id="orders" placeholder="Order IDs (comma/new line)"></textarea>
+    <select id="reason">
+      <option value="">Select Reason</option>
+      <option>Customer Refused - OTP verified RTO</option>
+      <option>Customer not available at the given address</option>
+      <option>Mistakenly placed order - want to cancel</option>
+      <option>Running out of money - want to cancel order</option>
+      <option>Others</option>
+    </select>
+    <input type="text" id="customReason" placeholder="Custom reason">
+    <input type="date" id="date">
+    <button onclick="addData()">Add Data</button>
+    <button onclick="downloadCSV()">Download Excel</button>
+  </div>
+
+  <!-- File Upload -->
+  <div class="card">
+    <h2>Upload CSV or Excel File</h2>
+    <input type="file" id="fileInput" accept=".csv, .xlsx, .xls" />
+    <p><small>File format columns: Order ID, Reason, Date (Date optional)</small></p>
+  </div>
+
+  <!-- Search -->
+  <div class="card">
+    <h2>Search</h2>
+    <input type="text" id="search" onkeyup="searchTable()" placeholder="Search order...">
+  </div>
+
+  <!-- Tables and Charts -->
+  <div class="card">
+    <h2>Order Table</h2>
+    <table id="table">
+      <tr><th>Order ID</th><th>Reason</th><th>Date</th><th>Action</th></tr>
+    </table>
+  </div>
+
+  <div class="card chart-row">
+    <div class="chart-container">
+      <h2>Top Reasons (Pie Chart)</h2>
+      <canvas id="pieChart"></canvas>
+    </div>
+    <div class="chart-container">
+      <h2>Top RTO Reasons</h2>
+      <canvas id="rtoPie"></canvas>
+    </div>
+  </div>
+
+</div>
+
+
+<script src="script.js"></script>
+</body>
+</html>
